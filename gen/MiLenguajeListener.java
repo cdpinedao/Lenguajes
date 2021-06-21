@@ -1,4 +1,4 @@
-// Generated from D:/Users/cesar/Documents/GitHub/TraductorTest/grammar\MiLenguaje.g4 by ANTLR 4.9.1
+// Generated from D:/Users/cesar/Documents/GitHub/Lenguajes/grammar\MiLenguaje.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -106,6 +106,26 @@ public interface MiLenguajeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInstanciar(MiLenguajeParser.InstanciarContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MiLenguajeParser#comentario}.
+	 * @param ctx the parse tree
+	 */
+	void enterComentario(MiLenguajeParser.ComentarioContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiLenguajeParser#comentario}.
+	 * @param ctx the parse tree
+	 */
+	void exitComentario(MiLenguajeParser.ComentarioContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MiLenguajeParser#llamar_funcion}.
+	 * @param ctx the parse tree
+	 */
+	void enterLlamar_funcion(MiLenguajeParser.Llamar_funcionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiLenguajeParser#llamar_funcion}.
+	 * @param ctx the parse tree
+	 */
+	void exitLlamar_funcion(MiLenguajeParser.Llamar_funcionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiLenguajeParser#cadena}.
 	 * @param ctx the parse tree

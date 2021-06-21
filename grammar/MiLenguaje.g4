@@ -4,7 +4,7 @@ inicio: (funcion|estructura)* funcion_principal (funcion|estructura)*;
 
 funcion: 'funcion' ('entero' | 'real' | 'caracter' |  'cadena' |'booleano'|ID) ID '(' (','| 'entero' | 'real' | 'caracter' |  'cadena' |'booleano' | ID)* ')' 'hacer' (comentario | caracter | cadena |seleccionar | hacer_mientras | mientras | para | leer | booleano | entero| real | imprimir | cond_si | declarar_instancia | instanciar | asignacion)* 'retornar'(Num | ID | OPS | ',' )* ';' 'fin_funcion';
 funcion_principal  : 'funcion_principal' (comentario | caracter | cadena |seleccionar | hacer_mientras | mientras | para | leer | booleano | entero| real | imprimir | cond_si | declarar_instancia | instanciar | asignacion)* 'fin_principal' ;
-estructura :  'estructura' ID  (ID ID ';' | entero | real | caracter | cadena | booleano)* 'fin_estructura' ;
+estructura :  'estructura' ID  (ID ID ';' | entero | real | caracter | cadena | booleano | imprimir)* 'fin_estructura' ;
 
 entero: 'entero' (ID | ID '=' Num) (',' (ID | ID '=' Num))* ';';
 real: 'real' (ID | ID '=' Num) (',' (ID | ID '=' Num))* ';'; // a falta de info se toma en cuenta que un real siempre debe tener valores flotantes

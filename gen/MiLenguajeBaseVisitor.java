@@ -1,4 +1,4 @@
-// Generated from D:/Users/cesar/Documents/GitHub/TraductorTest/grammar\MiLenguaje.g4 by ANTLR 4.9.1
+// Generated from D:/Users/cesar/Documents/GitHub/Lenguajes/grammar\MiLenguaje.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -80,6 +80,20 @@ public class MiLenguajeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitInstanciar(MiLenguajeParser.InstanciarContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitComentario(MiLenguajeParser.ComentarioContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLlamar_funcion(MiLenguajeParser.Llamar_funcionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

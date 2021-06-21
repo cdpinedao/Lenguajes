@@ -1,4 +1,4 @@
-// Generated from D:/Users/cesar/Documents/GitHub/TraductorTest/grammar\MiLenguaje.g4 by ANTLR 4.9.1
+// Generated from D:/Users/cesar/Documents/GitHub/Lenguajes/grammar\MiLenguaje.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -69,6 +69,18 @@ public interface MiLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstanciar(MiLenguajeParser.InstanciarContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiLenguajeParser#comentario}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComentario(MiLenguajeParser.ComentarioContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiLenguajeParser#llamar_funcion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLlamar_funcion(MiLenguajeParser.Llamar_funcionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiLenguajeParser#cadena}.
 	 * @param ctx the parse tree

@@ -1,1 +1,4 @@
-hola Manuela, Felipe, Emilia
+funcion_principal
+    entero a;
+    leer( a );
+fin_principal

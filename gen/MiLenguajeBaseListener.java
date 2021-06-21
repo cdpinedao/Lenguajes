@@ -1,4 +1,4 @@
-// Generated from D:/Users/cesar/Documents/GitHub/TraductorTest/grammar\MiLenguaje.g4 by ANTLR 4.9.1
+// Generated from D:/Users/cesar/Documents/GitHub/Lenguajes/grammar\MiLenguaje.g4 by ANTLR 4.9.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -130,6 +130,30 @@ public class MiLenguajeBaseListener implements MiLenguajeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInstanciar(MiLenguajeParser.InstanciarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComentario(MiLenguajeParser.ComentarioContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComentario(MiLenguajeParser.ComentarioContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLlamar_funcion(MiLenguajeParser.Llamar_funcionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLlamar_funcion(MiLenguajeParser.Llamar_funcionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

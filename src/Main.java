@@ -18,6 +18,13 @@ public class Main {
             MiLenguajeParser parser = new MiLenguajeParser(tokens);
             ParseTree tree = parser.inicio(); // Iniciar el analisis sintáctico en la regla inicial: r
             System.out.println(tree.toStringTree(parser)); // imprime el arbol al estilo LISP
+
+            // Create a generic parse tree walker that can trigger callbacks
+            ParseTreeWalker walker = new ParseTreeWalker();
+            // Walk the tree created during the parse, trigger callbacks
+            walker.walk(new traductor(), tree);
+            System.out.println(); // print a \n after translation
+
         } catch (Exception e){
             System.err.println("Error (Test): " + e);
         }
