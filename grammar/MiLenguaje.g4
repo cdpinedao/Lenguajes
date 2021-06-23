@@ -4,7 +4,7 @@ inicio: (funcion|estructura)* funcion_principal (funcion|estructura)*;
 
 funcion: 'funcion' ('entero' | 'real' | 'caracter' |  'cadena' |'booleano'|ID) ID '(' (','| 'entero' | 'real' | 'caracter' |  'cadena' |'booleano' | ID)* ')' 'hacer' (comentario | caracter | cadena |seleccionar | hacer_mientras | mientras | para | leer | booleano | entero| real | imprimir | cond_si | declarar_instancia | instanciar | asignacion)* 'retornar'(Num | ID | OPS | ',' )* ';' 'fin_funcion';
 funcion_principal  : 'funcion_principal' (comentario | caracter | cadena |seleccionar | hacer_mientras | mientras | para | leer | booleano | entero| real | imprimir | cond_si | declarar_instancia | instanciar | asignacion)* 'fin_principal' ;
-estructura :  'estructura' ID  (ID ID ';' | entero | real | caracter | cadena | booleano | imprimir)* 'fin_estructura' ;
+estructura :  'estructura' ID  (entero | real | caracter | cadena | booleano | imprimir | declarar_instancia | instanciar | asignacion)* 'fin_estructura' ;
 
 entero: 'entero' (ID | ID '=' Num) (',' (ID | ID '=' Num))* ';';
 real: 'real' (ID | ID '=' Num) (',' (ID | ID '=' Num))* ';'; // a falta de info se toma en cuenta que un real siempre debe tener valores flotantes
@@ -13,7 +13,7 @@ asignacion: (ID '=' ((Num | ID | 'verdadero' | 'falso') | ((Num|ID) OPS (Num|ID)
 declarar_instancia: (ID ID ';');
 instanciar: (ID '.' ID ('.'ID)*) '=' (ID|Num) ';';
 comentario: COMENTARIO_MULTIPLE | COMENTARIO_SENCILLO;
-llamar_funcion: ID '(' (ID|Num|','|('entero' | 'real' | 'caracter' |  'cadena' |'booleano'| ID))*')'';';
+llamar_funcion: ID '(' (ID|Num|','|ID|Num)*')'';';
 
 cadena: 'cadena' (ID | ID '=' STRING) (','(ID | ID '=' STRING))*';'; //reconoce cadenas vacias
 booleano: 'booleano' (ID | ID '=' ('falso'|'verdadero'))(','(ID | ID '=' ('falso'|'verdadero')))*';';

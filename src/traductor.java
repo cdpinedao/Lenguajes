@@ -1,33 +1,63 @@
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterInicio(MiLenguajeParser.InicioContext ctx) {
-
+        System.out.println("package Main;");
+        System.out.println("import java.util.*;");
+        System.out.println("public class Main{");
     }
 
     @Override
     public void exitInicio(MiLenguajeParser.InicioContext ctx) {
-
+        System.out.println("}");
     }
 
     @Override
     public void enterFuncion(MiLenguajeParser.FuncionContext ctx) {
 
+        System.out.print("\tstatic ");
+        for (int i = 1; i < ctx.children.size(); i++) {
+
+            if (ctx.getChild(i).toString().equals("entero")){
+                System.out.print("int ");
+            }else if(ctx.getChild(i).toString().equals("real")){
+                System.out.print("float ");
+            }else if(ctx.getChild(i).toString().equals("booleano")) {
+                System.out.print("boolean ");
+            }else if(ctx.getChild(i).toString().equals("cadena")){
+                    System.out.print("String ");
+            }else if(ctx.getChild(i).toString().equals("caracter")){
+                System.out.print("char ");
+            }else if(ctx.getChild(i).toString().equals("hacer")) {
+                System.out.println("{");
+            }else if(ctx.getChild(i).toString().equals("retornar")){
+                    System.out.print("return ");
+            }else if(ctx.getChild(i).toString().equals("fin_funcion")){
+
+            }else{
+                System.out.print(ctx.getChild(i));
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
+
     }
 
     @Override
     public void exitFuncion(MiLenguajeParser.FuncionContext ctx) {
-
+        System.out.println("}");
     }
 
     @Override
     public void enterFuncion_principal(MiLenguajeParser.Funcion_principalContext ctx) {
-        System.out.println("import java.util.*;");
-        System.out.println("public class Main{");
+
+
         System.out.println("public static void main(String[] args){");
         System.out.println("Scanner scanner = new Scanner(System.in);");
     }
@@ -35,12 +65,12 @@ public class traductor extends MiLenguajeBaseListener{
     @Override
     public void exitFuncion_principal(MiLenguajeParser.Funcion_principalContext ctx) {
         System.out.println("}");
-        System.out.println("}");
+
     }
 
     @Override
     public void enterEstructura(MiLenguajeParser.EstructuraContext ctx) {
-        System.out.println("public class " + ctx.ID(0) + "{");
+        System.out.println("public static class " + ctx.ID() + "{");
     }
 
     @Override
@@ -105,7 +135,8 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterDeclarar_instancia(MiLenguajeParser.Declarar_instanciaContext ctx) {
-        super.enterDeclarar_instancia(ctx);
+        System.out.print(ctx.getChild(0) + " " + ctx.getChild(1));
+        System.out.println(" = new " + ctx.getChild(0) + "();");
     }
 
     @Override
@@ -171,35 +202,49 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterImprimir(MiLenguajeParser.ImprimirContext ctx) {
-        System.out.print("\tSystem.out.println");
-        for (int i = 1; i < ctx.children.size(); i++) {
-            if (ctx.getChild(i).toString().equals(",")){
-                System.out.print("+");
-            }else{
-                System.out.print(ctx.getChild(i));
+
+            System.out.print("\tSystem.out.println");
+            for (int i = 1; i < ctx.children.size(); i++) {
+                if (ctx.getChild(i).toString().equals(",") ) {
+                    System.out.print("+");
+                } else {
+                    System.out.print(ctx.getChild(i));
+
+                }
             }
-        }
-        System.out.println("");
+            System.out.println("");
+
+
     }
 
     @Override
     public void exitImprimir(MiLenguajeParser.ImprimirContext ctx) {
-        super.exitImprimir(ctx);
+
     }
 
     @Override
     public void enterCond_si(MiLenguajeParser.Cond_siContext ctx) {
+        //System.out.println("CONTEXT: "+ctx.getChild(17).getClass());
+        RuleContext rule = new RuleContext();
+        //System.out.println(ctx.imprimir());
+        //enterImprimir((MiLenguajeParser.ImprimirContext) ctx.getChild(15));
         System.out.print("\tif ");
 
+        ParseTreeWalker walker = new ParseTreeWalker();
 
+        //enterImprimir((MiLenguajeParser.ImprimirContext) ctx.getChild(15));
         for (int i = 1; i < ctx.children.size(); i++) {
             if (ctx.getChild(i).toString().equals("fin_si")) {
-
+                //System.out.println("\t}");
             }else if(ctx.getChild(i).toString().equals("entonces")) {
                 System.out.print("{");
             }else if(ctx.getChild(i).toString().equals("si_no")){
                 System.out.println("}else{");
-            }else{
+            }else if(ctx.getChild(i).getChildCount()>0) {
+                walker.walk(new traductor(), ctx.getChild(i));
+
+            }else
+            {
                 System.out.print(ctx.getChild(i));
             }
         }
