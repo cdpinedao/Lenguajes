@@ -26,12 +26,15 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterFuncion_principal(MiLenguajeParser.Funcion_principalContext ctx) {
+        System.out.println("import java.util.*;");
+        System.out.println("public class Main{");
         System.out.println("public static void main(String[] args){");
         System.out.println("Scanner scanner = new Scanner(System.in);");
     }
 
     @Override
     public void exitFuncion_principal(MiLenguajeParser.Funcion_principalContext ctx) {
+        System.out.println("}");
         System.out.println("}");
     }
 
@@ -188,9 +191,6 @@ public class traductor extends MiLenguajeBaseListener{
     public void enterCond_si(MiLenguajeParser.Cond_siContext ctx) {
         System.out.print("\tif ");
 
-        //System.out.println(ctx.children.toString());
-
-        //enterImprimir((MiLenguajeParser.ImprimirContext) ctx.getChild(15));
 
         for (int i = 1; i < ctx.children.size(); i++) {
             if (ctx.getChild(i).toString().equals("fin_si")) {
@@ -198,7 +198,7 @@ public class traductor extends MiLenguajeBaseListener{
             }else if(ctx.getChild(i).toString().equals("entonces")) {
                 System.out.print("{");
             }else if(ctx.getChild(i).toString().equals("si_no")){
-                System.out.print("}else{");
+                System.out.println("}else{");
             }else{
                 System.out.print(ctx.getChild(i));
             }
