@@ -7,7 +7,7 @@ funcion_principal  : 'funcion_principal' (comentario | caracter | cadena |selecc
 estructura :  'estructura' ID  (entero | real | caracter | cadena | booleano | imprimir | declarar_instancia | instanciar | asignacion)* 'fin_estructura' ;
 
 entero: 'entero' (ID | ID '=' Num) (',' (ID | ID '=' Num))* ';';
-real: 'real' (ID | ID '=' Num) (',' (ID | ID '=' Num))* ';'; // a falta de info se toma en cuenta que un real siempre debe tener valores flotantes
+real: 'real' (ID | ID '=' (Num | ID)) (ID | OPS |',' (OPS | ID | ID '=' (Num | ID)))* ';';
 caracter: 'caracter' (ID | ID '=' '\'' ID '\'' | ID '=' '\'' '\'' |ID '=' '\'' '_' '\'' ) (','(ID | ID '=' '\'' ID '\''| ID '=' '\'' '\''|ID '=' '\'' '_' '\''))*';';
 asignacion: (ID '=' ((Num | ID | 'verdadero' | 'falso') | ((Num|ID) OPS (Num|ID))*| ID'('(ID|Num|',')*')')) ';';
 declarar_instancia: (ID ID ';');

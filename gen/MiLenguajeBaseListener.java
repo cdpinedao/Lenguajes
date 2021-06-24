@@ -1,4 +1,4 @@
-// Generated from D:/Users/cesar/Documents/GitHub/Lenguajes/grammar\MiLenguaje.g4 by ANTLR 4.9.1
+// Generated from C:/Users/ASUS/Desktop/Lenguajes de programacion/Lenguajes/grammar\MiLenguaje.g4 by ANTLR 4.9.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

@@ -5,7 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class traductor extends MiLenguajeBaseListener{
-
+    public ParseTreeWalker walker = new ParseTreeWalker();
     @Override
     public void enterInicio(MiLenguajeParser.InicioContext ctx) {
         System.out.println("package Main;");
@@ -40,13 +40,17 @@ public class traductor extends MiLenguajeBaseListener{
                     System.out.print("return ");
             }else if(ctx.getChild(i).toString().equals("fin_funcion")){
 
+            }else if(ctx.getChild(i).getChildCount()>0) {
+                walker.walk(new traductor(), ctx.getChild(i));
             }else{
                 System.out.print(ctx.getChild(i));
                 System.out.print(" ");
             }
         }
         System.out.println();
-
+        for(int i =0; i < ctx.getChildCount(); i++){
+            ctx.removeLastChild();
+        }
     }
 
     @Override
@@ -80,11 +84,17 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterEntero(MiLenguajeParser.EnteroContext ctx) {
-        System.out.print("\tint ");
-        for (int i = 1; i < ctx.children.size(); i++) {
-            System.out.print(ctx.getChild(i));
+        if(ctx.getChildCount()>2) {
+            System.out.print("\tint ");
+
+            for (int i = 1; i < ctx.children.size(); i++) {
+                System.out.print(ctx.getChild(i));
+            }
+            System.out.println();
+            for (int i = 0; i < ctx.getChildCount(); i++) {
+                ctx.removeLastChild();
+            }
         }
-        System.out.println();
     }
 
     @Override
@@ -94,7 +104,7 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterReal(MiLenguajeParser.RealContext ctx) {
-        System.out.print("\tfloat ");
+        System.out.print("\tdouble ");
         for (int i = 1; i < ctx.children.size(); i++) {
             System.out.print(ctx.getChild(i));
         }
@@ -122,10 +132,14 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterAsignacion(MiLenguajeParser.AsignacionContext ctx) {
-        for (int i = 0; i < ctx.children.size(); i++) {
-            System.out.print(ctx.getChild(i));
+        if(ctx.getChildCount()>2) {
+            for (int i = 0; i < ctx.children.size(); i++) {
+                System.out.print(ctx.getChild(i));
+            }
         }
-        System.out.println();
+        for(int i =0; i < ctx.getChildCount(); i++){
+            ctx.removeLastChild();
+        }
     }
 
     @Override
@@ -192,7 +206,7 @@ public class traductor extends MiLenguajeBaseListener{
     @Override
     public void enterLeer(MiLenguajeParser.LeerContext ctx) {
 
-        System.out.println("Integer "+ctx.getChild(2)+" = scanner.nextLine();");
+        System.out.println(ctx.getChild(2)+" = scanner.nextInt();");
     }
 
     @Override
@@ -224,31 +238,32 @@ public class traductor extends MiLenguajeBaseListener{
 
     @Override
     public void enterCond_si(MiLenguajeParser.Cond_siContext ctx) {
-        //System.out.println("CONTEXT: "+ctx.getChild(17).getClass());
         RuleContext rule = new RuleContext();
-        //System.out.println(ctx.imprimir());
-        //enterImprimir((MiLenguajeParser.ImprimirContext) ctx.getChild(15));
+
         System.out.print("\tif ");
 
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        //enterImprimir((MiLenguajeParser.ImprimirContext) ctx.getChild(15));
         for (int i = 1; i < ctx.children.size(); i++) {
+
             if (ctx.getChild(i).toString().equals("fin_si")) {
-                //System.out.println("\t}");
+
             }else if(ctx.getChild(i).toString().equals("entonces")) {
-                System.out.print("{");
+                System.out.println("{");
+                System.out.print("\t");
             }else if(ctx.getChild(i).toString().equals("si_no")){
-                System.out.println("}else{");
+                System.out.println("\t}else{");
+                System.out.print("\t");
             }else if(ctx.getChild(i).getChildCount()>0) {
                 walker.walk(new traductor(), ctx.getChild(i));
-
             }else
             {
                 System.out.print(ctx.getChild(i));
             }
+
         }
-        System.out.println();
+        int childs = ctx.getChildCount();
+        for(int i =0; i < childs; i++){
+            ctx.removeLastChild();
+        }
     }
 
     @Override
@@ -264,18 +279,24 @@ public class traductor extends MiLenguajeBaseListener{
             if (ctx.getChild(i).toString().equals("fin_mientras")) {
 
             } else if (ctx.getChild(i).toString().equals("hacer")) {
-                System.out.print("{");
+                System.out.println("\t{");
+                System.out.print("\t\t");
+            }else if(ctx.getChild(i).getChildCount()>0) {
+                walker.walk(new traductor(), ctx.getChild(i));
             } else {
                 System.out.print(ctx.getChild(i));
             }
 
         }
-        System.out.println();
+        int childs = ctx.getChildCount();
+        for(int i =0; i < childs; i++){
+            ctx.removeLastChild();
+        }
     }
 
     @Override
     public void exitMientras(MiLenguajeParser.MientrasContext ctx) {
-        System.out.println("}");
+        System.out.println("\t}");
     }
 
     @Override
@@ -289,19 +310,31 @@ public class traductor extends MiLenguajeBaseListener{
                 contador++;
                 System.out.print(ctx.getChild(i));
             }else if (contador == 1){
-                System.out.print(ctx.getChild(3).toString() + '=' + ctx.getChild(3) + '+' + ctx.getChild(i));
+                //System.out.println("CONTEXT: ");
+                //System.out.println(ctx.getChild(2).getChild(0).toString());
+                if(ctx.getChild(2).getChild(0).toString().equals("entero")) {
+
+                    System.out.print(ctx.getChild(2).getChild(1).toString() + '=' + ctx.getChild(2).getChild(1).toString() + '+' + ctx.getChild(i));
+                }else{
+                    System.out.print(ctx.getChild(2).getChild(0).toString() + '=' + ctx.getChild(2).getChild(0).toString() + '+' + ctx.getChild(i));
+                }
                 contador = 0;
                 forflag = false;
             }else if(ctx.getChild(i).toString().equals("fin_para")) {
 
             } else if (ctx.getChild(i).toString().equals("hacer")) {
                 System.out.print("{");
+            }else if(ctx.getChild(i).getChildCount()>0) {
+                walker.walk(new traductor(), ctx.getChild(i));
             } else {
                 System.out.print(ctx.getChild(i));
             }
 
         }
-        System.out.println();
+        int childs = ctx.getChildCount();
+        for(int i =0; i < childs; i++){
+            ctx.removeLastChild();
+        }
     }
 
     @Override
@@ -317,11 +350,17 @@ public class traductor extends MiLenguajeBaseListener{
                 System.out.print("}while");
             } else if (ctx.getChild(i).toString().equals("hacer")) {
 
+            }else if(ctx.getChild(i).getChildCount()>0) {
+                walker.walk(new traductor(), ctx.getChild(i));
             } else {
                 System.out.print(ctx.getChild(i));
             }
         }
-        System.out.println();
+        int childs = ctx.getChildCount();
+        for(int i =0; i < childs; i++){
+            ctx.removeLastChild();
+        }
+
     }
 
 
@@ -345,11 +384,16 @@ public class traductor extends MiLenguajeBaseListener{
 
             } else if (ctx.getChild(i).toString().equals("entre")) {
                 System.out.println("{");
+            }else if(ctx.getChild(i).getChildCount()>0) {
+                walker.walk(new traductor(), ctx.getChild(i));
             } else {
                 System.out.print(ctx.getChild(i));
             }
         }
-        System.out.println();
+        int childs = ctx.getChildCount();
+        for(int i =0; i < childs; i++){
+            ctx.removeLastChild();
+        }
     }
 
     @Override

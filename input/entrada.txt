@@ -1,7 +1,8 @@
-funcion cadena sum(entero a, entero b) hacer
-    retornar a + b;
-fin_funcion
-
 funcion_principal
-    imprimir (sum(2,4));
+    booleano flag = verdadero; 
+    caracter letter = 'x';
+    entero count = 7;
+    real mean = 3.5;
+    cadena name = "Lenguajes de programacion";
+    entero x,y=1,z=0;
 fin_principal
